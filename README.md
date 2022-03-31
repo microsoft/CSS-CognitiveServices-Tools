@@ -1,33 +1,20 @@
-# Project
+# QnAMaker-createKB
+This tool would let you create Knowledge base using your Cognitive Search service, in case if you have accidently deleted your QnAMaker resource.
+After running this tool, your KB’s data will be stored in excel files which can be used to restore your KB using Import KB option.
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
 
-As the maintainer of this project, please make a few updates:
-
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
-
-## Contributing
-
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
-
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-## Trademarks
-
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+Steps to run this tool:
+1.	Clone/Download the repo from this link:
+    https://github.com/sachinsharma-ms/QnAMaker-createKB/
+2.	Make sure you have python installed on your system.
+3.	Open CMD console inside the same folder which has requirement.txt file in it.
+4.	Run this command on console:
+    pip install -r requirements.txt
+5.	Open index.py file in edit mode using any code Editor.
+6.	Go to def main() function and update these values:
+    index_name = "" -> Copy the index_name from Azure Cognitive Search Overview page. There will be indexes tab option in the middle windowpane.
+    endpoint = “” -> Get this endpoint value from Azure Cognitive Search Overview page. There will be a Url value similar to this:  https://<custom_name>.search.windows.net
+    key = “” -> Get this Key value from Azure Cognitive Search Keys option. Copy any one of the keys and paste it in code.
+7.	From CMD console run python index.py
+8.	After the program finishes, you will see few Excel Files which will have your KB data.
+9.	You can use these Excel file to recreate your KB in new/existing resource using Import KB option.
