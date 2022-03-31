@@ -4,8 +4,7 @@ After running this tool, your KB’s data will be stored in excel files which ca
 
 
 Steps to run this tool:
-1.	Clone/Download the repo from this link:
-    https://github.com/sachinsharma-ms/QnAMaker-createKB/
+1.	Clone/Download the repo. 
 2.	Make sure you have python installed on your system.
 3.	Open CMD console inside the same folder which has requirement.txt file in it.
 4.	Run this command on console:
