@@ -16,5 +16,7 @@ key = “” -> Get this Key value from Azure Cognitive Search Keys option. Copy
 8.	After the program finishes, you will see a few Excel Files which will have your KB data.
 9.	You can use these Excel files to recreate your KB in new/existing resources using the Import KB option as outlined in the document: 
 https://docs.microsoft.com/en-us/azure/cognitive-services/qnamaker/tutorials/export-knowledge-base#import-a-knowledge-base
+
+
 *Note: TSV and XLS files, from exported knowledge bases, can only be used by importing the files from the Settings page in the QnA Maker portal. They can't be used as data sources during knowledge base creation or from the + Add file or + Add URL feature on the Settings page.
 When you import the Knowledge base through these TSV and XLS files, the QnA pairs get added to the editorial source and not the sources from which the QnAs were extracted in the exported Knowledge Base.
