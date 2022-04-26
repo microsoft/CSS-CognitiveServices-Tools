@@ -1,3 +1,0 @@
-azure-search-documents
-azure-core
-pandas
