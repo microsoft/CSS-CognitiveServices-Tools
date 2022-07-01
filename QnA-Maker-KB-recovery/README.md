@@ -6,7 +6,7 @@ Steps:
 2.	Make sure you have python installed on your system or install it from this URL https://www.python.org/downloads/.
 3.	Open the CMD console inside the same folder which has the requirement.txt file in it.
 4.	Run this command on the console:
-pip install -r requirements.txt
+pip install -r requirement.txt
 5.	Open index.py file in edit mode using any code Editor.
 6.	Go to def main() function and update these values:
 	
