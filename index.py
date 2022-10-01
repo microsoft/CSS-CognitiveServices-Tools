@@ -2,8 +2,15 @@ from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 import pandas as pd
 
-def createKBUsingSearch(endpoint, key, index_name):
+pd.io.formats.excel.ExcelFormatter.header_style = None
 
+#fetch KB from Azure Search
+#provide kb name, search service endpoints and search service key
+index_name = ""
+endpoint = ""
+key = ""
+
+def createKBUsingSearch(endpoint, key, index_name):
     #basic validation check
     validateEndpointKey(endpoint, key, index_name)
 
@@ -67,7 +74,11 @@ def createKBUsingSearch(endpoint, key, index_name):
                 tempDict["Metadata"] = metaData
             
             #insert into dataframe
-            KBDataFrame = KBDataFrame.append(tempDict, ignore_index=True, sort=False)
+            #KBDataFrame = KBDataFrame.append(tempDict, ignore_index=True, sort=False)
+            KBDataFrame = pd.concat([KBDataFrame,pd.DataFrame.from_records([tempDict])], ignore_index=True, sort=True, axis=0)
+            KBDataFrame['Answer'] = KBDataFrame['Answer'].str.replace('\n', '\\n')
+            KBDataFrame.to_excel("intial.xlsx")
+            # print("Len: final operation", len(KBDataFrame))
         if len(KBDataFrame.index) > 0:
             KBDataFrame = KBDataFrame.assign(Question=KBDataFrame['Questions']).explode('Question').reset_index(drop=True).drop(["Questions"], axis = 1)
             generateExcel(KBDataFrame)
@@ -95,8 +106,16 @@ def generateExcel(dataFrame):
         DFCreate = DFCreate.sort_values(by=['QnaId'])
         DFCreate['QnaId'] = DFCreate['QnaId'].astype(str)
 
+        #remove whitespace
+        DFCreate= DFCreate.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+
         #create excel sheet
-        DFCreate.to_excel(diffKB+".xlsx",sheet_name='QnAs', index=False)
+        writer = pd.ExcelWriter(diffKB+".xlsx", engine='xlsxwriter')
+        writer.book.strings_to_urls = False
+        DFCreate.to_excel(writer, sheet_name='QnAs', index=False)
+        writer.close()
+
+        #DFCreate.to_excel(diffKB+".xlsx",sheet_name='QnAs', engine='xlsxwriter', options={'strings_to_urls': False})
         print("Sheet Generated with name \t"+str(diffKB)+".xlsx")
     
 
@@ -113,13 +132,6 @@ def validateEndpointKey(endpoint, key, index_name):
         exit("Wrong Search Endpoint !")
 
 def main():
-
-    #fetch KB from Azure Search
-    #provide kb name, search service endpoints and search service key
-    index_name = ""
-    endpoint = ""
-    key = ""
-    
     createKBUsingSearch(endpoint, key, index_name)
 
 if __name__ == "__main__":
